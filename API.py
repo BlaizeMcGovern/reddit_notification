@@ -32,7 +32,7 @@ new_reddit = subreddit.new(limit=10)
 
 
 # creates an array of post titles
-def new_submission(subs):
+def new_submission():
     for submission in new_reddit:
         titles.append(submission.title)
 
@@ -53,5 +53,5 @@ def send_notify():
         titles.append(title1)
 
 
-#new_submission(number_of_subs)
+#new_submission()
 send_notify()
