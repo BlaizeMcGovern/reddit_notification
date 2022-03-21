@@ -1,4 +1,5 @@
 #I could have just used the date function built into PRAW but that seemed to simple
+#In practice use has to call new_submission() once to populate the array after that only send_notify() is needed
 from plyer import notification
 import praw
 
