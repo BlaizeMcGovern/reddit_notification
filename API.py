@@ -50,8 +50,9 @@ def send_notify():
     if title1 in titles:
         return True
     else:
-        notify()
         titles.append(title1)
+        notify()
+       
 
 
 #new_submission()
