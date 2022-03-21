@@ -1,14 +1,12 @@
+#I could have just used the date function built into PRAW but that seemed to simple
 from plyer import notification
 import praw
 
 title = 'New reddit post!'
 message = 'A new post was made in the uvic sunbreddit'
 
-# number of posts in a subreddit
-number_of_subs = 0
-#new posts
-new_sub = 0
-
+#array of submission titles
+titles = []
 
 # creates the notification
 def notify():
@@ -17,6 +15,7 @@ def notify():
                         app_icon=None,
                         timeout=10,
                         toast=False)
+    print("You have now been notified")
 
 
 # api information
@@ -28,26 +27,31 @@ reddit = praw.Reddit(client_id='2qV03UbLMeEhV_kxjt4Y0A',
 
 subreddit = reddit.subreddit('testingmyapi')
 
-# limit of how many pots it can read
+# limit of how many posts it can read
 new_reddit = subreddit.new(limit=10)
 
 
-# counts the submissions (posts)
+# creates an array of post titles
 def new_submission(subs):
-    number_of_subs = 0
     for submission in new_reddit:
-        number_of_subs = number_of_subs + 1
+        titles.append(submission.title)
 
+posts = subreddit.new(limit = 1)
 
-# recounts the posts
-# if the posts are greater than old_sub send a notification
-def send_notify(subs):
-
-    for submission in new_reddit:
-        new_sub = new_sub+ 1
-    if new_sub > number_of_subs:
+# gets the first title
+# if the title is not in the array notifies of a new post
+#then adds title to the array
+def send_notify():
+    #keeps track of the title of a new submission
+    title1 = ''
+    for submission in posts:
+        title1 = submission.title
+    if title1 in titles:
+        return True
+    else:
         notify()
+        titles.append(title1)
 
 
-new_submission(number_of_subs)
-send_notify(number_of_subs)
+#new_submission(number_of_subs)
+send_notify()
